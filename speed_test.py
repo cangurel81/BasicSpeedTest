@@ -3,6 +3,29 @@ Basic Speed Test - Modern Internet Speed Testing Application
 A sleek, dark-themed speed test application with animated gauges.
 """
 
+import sys
+import os
+
+# ─── EXE Fix for speedtest-cli (Python 3.10+ & PyInstaller) ────────────────────
+# This avoids the 'NoneType object has no attribute fileno' and '__builtin__' errors
+# which occur in windowed EXE environments.
+
+try:
+    import builtins
+except ImportError:
+    import __builtin__ as builtins
+
+if not hasattr(builtins, '__builtin__'):
+    builtins.__builtin__ = builtins
+
+# Ensure standard streams exist for libraries that expect a terminal (fileno)
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, 'w')
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, 'w')
+if sys.stdin is None:
+    sys.stdin = open(os.devnull, 'r')
+
 import customtkinter as ctk
 import threading
 import speedtest
@@ -293,7 +316,6 @@ class SpeedTestApp(ctk.CTk):
     """Main Speed Test Application."""
 
     def _get_resource_path(self, relative_path):
-        import sys
         if getattr(sys, 'frozen', False):
             base_path = getattr(sys, '_MEIPASS', os.path.dirname(sys.executable))
         else:
@@ -312,11 +334,20 @@ class SpeedTestApp(ctk.CTk):
         self.minsize(680, 620)
         self.configure(fg_color=COLORS["bg_dark"])
 
-        icon_path = self._get_resource_path("sphere.png")
-        if os.path.exists(icon_path):
-            from tkinter import PhotoImage
-            icon_img = PhotoImage(file=icon_path)
-            self.iconphoto(False, icon_img)
+        # Try to load icon
+        icon_png = self._get_resource_path("sphere.png")
+        icon_ico = self._get_resource_path("sphere.ico")
+        
+        try:
+            if os.path.exists(icon_ico):
+                self.iconbitmap(icon_ico)
+            elif os.path.exists(icon_png):
+                from PIL import Image, ImageTk
+                img = Image.open(icon_png)
+                self._icon_img = ImageTk.PhotoImage(img)
+                self.iconphoto(True, self._icon_img)
+        except Exception as e:
+            print(f"Icon loading failed: {e}")
 
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("dark-blue")

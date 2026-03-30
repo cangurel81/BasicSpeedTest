@@ -22,7 +22,11 @@ python speed_test.py
 ```
 
 **EXE Yapma:**
-`PyInstaller` veya `auto-py-to-exe` kullanırken `sphere.png` dosyasını eklemeyi unutmayın.
+`PyInstaller` kullanırken şu komutla derlemeniz önerilir (hataları önlemek için):
+```bash
+pyinstaller --noconfirm --onefile --windowed --add-data "sphere.png;." --add-data "sphere.ico;." --icon "sphere.ico" --collect-all speedtest speed_test.py
+```
+*Not: v1.2 sürümüyle birlikte EXE çevirme sırasında oluşan `fileno` ve `__builtin__` hataları kod seviyesinde giderilmiştir.*
 
 ---
 ## 🇬🇧 English
@@ -44,4 +48,8 @@ python speed_test.py
 ```
 
 **Creating an EXE:**
-When using `PyInstaller` or `auto-py-to-exe`, make sure to include the `sphere.png` file in your build.
+When using `PyInstaller`, the following command is recommended to avoid common errors:
+```bash
+pyinstaller --noconfirm --onefile --windowed --add-data "sphere.png;." --add-data "sphere.ico;." --icon "sphere.ico" --collect-all speedtest speed_test.py
+```
+*Note: The `fileno` and `__builtin__` errors encountered during EXE conversion have been addressed in the code for v1.2.*
