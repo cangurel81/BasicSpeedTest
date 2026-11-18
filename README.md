@@ -1,6 +1,19 @@
 # ⚡ Basic Speed Test (v1.2)
 
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey?style=flat&logo=windows)
+![Version](https://img.shields.io/badge/version-1.2-blue?style=flat)
+![Python](https://img.shields.io/badge/python-3.9+-blue?style=flat&logo=python)
+![License](https://img.shields.io/badge/license-GPL--3.0-green?style=flat)
+
 A modern, high-performance, and sleek dark-themed internet speed testing application. Now featuring **Animated Gauges**, **Multi-Provider Support**, and **High-Precision Measurement**!
+
+## ⬇️ Download / İndir
+
+[![Download for Windows](https://img.shields.io/badge/Download-Basic.Speed.Test.exe-2ea44f?style=for-the-badge&logo=windows)](https://github.com/cangurel81/BasicSpeedTest/releases/latest/download/Basic.Speed.Test.exe)
+
+Portable `.exe` — no installation required. Windows may warn about an unsigned binary: click **More info → Run anyway**.
+
+Kurulum gerektirmez. İmzasız olduğu için Windows SmartScreen uyarısı gösterebilir: **More info → Run anyway** deyin.
 
 ---
 ## 🇹🇷 Türkçe
